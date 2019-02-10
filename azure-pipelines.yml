@@ -1,5 +1,6 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
-- script: 'yarn install'
-- script: 'yarn lint'
+steps:
+  - script: 'yarn install'
+  - script: 'yarn lint'
