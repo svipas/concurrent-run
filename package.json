@@ -1,0 +1,13 @@
+{
+  "name": "concurrent-run",
+  "description": "simple, zero dependency, commands runner in concurrent mode",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0"
+  }
+}
