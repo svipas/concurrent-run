@@ -1,7 +1,7 @@
 {
   "name": "concurrent-run",
   "description": "simple, zero dependency, commands runner in concurrent mode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "bin": "index.js",
   "license": "MIT",
   "repository": "https://github.com/svipben/concurrent-run",
