@@ -2,6 +2,8 @@
 
 Simple, zero dependency, commands runner in concurrent mode.
 
+![Demo](./demo.gif)
+
 ## Installation
 
 ### Yarn
