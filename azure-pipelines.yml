@@ -3,4 +3,6 @@ pool:
 
 steps:
   - script: 'yarn install'
+    displayName: 'Install dependencies'
   - script: 'yarn lint'
+    displayName: 'Run linter'
