@@ -1,4 +1,4 @@
-# concurrent-run &middot; [![npm](https://img.shields.io/npm/v/concurrent-run.svg)](https://www.npmjs.com/package/concurrent-run)
+# concurrent-run &middot; [![npm](https://img.shields.io/npm/v/concurrent-run.svg)](https://www.npmjs.com/package/concurrent-run) [![Build Status](https://dev.azure.com/svipas/svipas/_apis/build/status/svipas.concurrent-run?branchName=master)](https://dev.azure.com/svipas/svipas/_build/latest?definitionId=2&branchName=master)
 
 Simple, zero dependency, multiple commands runner in concurrent mode.
 
