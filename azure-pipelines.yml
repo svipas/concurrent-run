@@ -13,6 +13,8 @@ jobs:
         displayName: 'Run linter'
       - script: 'yarn test'
         displayName: 'Run tests'
+      - script: 'node src/cli.js "echo test"'
+        displayName: 'Test CLI'
   - job: macOS
     pool:
       name: Hosted macOS
@@ -27,6 +29,8 @@ jobs:
         displayName: 'Run linter'
       - script: 'yarn test'
         displayName: 'Run tests'
+      - script: 'node src/cli.js "echo test"'
+        displayName: 'Test CLI'
   - job: Linux
     pool:
       name: Hosted Ubuntu 1604
@@ -41,3 +45,5 @@ jobs:
         displayName: 'Run linter'
       - script: 'yarn test'
         displayName: 'Run tests'
+      - script: 'node src/cli.js "echo test"'
+        displayName: 'Test CLI'
