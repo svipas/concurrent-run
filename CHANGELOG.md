@@ -5,6 +5,10 @@
 - Fix name collision of executed commands.
 - Add a conditional statement to check if the command was executed before printing its data.
 
+### Scripts
+
+- Add `prepublishOnly` script to run `yarn lint` and `yarn test` concurrently.
+
 ## 2.0.0 (June 15, 2019)
 
 - Rewrite everything from scratch.
