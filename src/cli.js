@@ -16,7 +16,8 @@ try {
   const executedCommands = {};
   new ConcurrentRun()
     .run(argv)
-    .on('data', (data, command) => {
+    .on('data', (data, command, index) => {
+      command = getUniqueCommand(command, index);
       if (!executedCommands[command]) {
         executedCommands[command] = [data];
       } else {
@@ -24,22 +25,25 @@ try {
       }
     })
     .on('close', (exitCode, command, index) => {
-      executedCommands[command].forEach(data => {
-        const lines = data.toString().split(os.EOL);
-        lines.forEach(line => {
-          if (line.startsWith('\u001b[2K')) {
-            line = line.replace('\u001b[2K', '');
-          }
-          if (line.startsWith('\u001b[1G')) {
-            line = line.replace('\u001b[1G', '');
-          }
-          if (line === '' || line === '\u001b[2K') {
-            return;
-          }
+      const executedCommand = executedCommands[getUniqueCommand(command, index)];
+      if (executedCommand) {
+        executedCommand.forEach(data => {
+          const lines = data.toString().split(os.EOL);
+          lines.forEach(line => {
+            if (line.startsWith('\u001b[2K')) {
+              line = line.replace('\u001b[2K', '');
+            }
+            if (line.startsWith('\u001b[1G')) {
+              line = line.replace('\u001b[1G', '');
+            }
+            if (line === '' || line === '\u001b[2K') {
+              return;
+            }
 
-          console.log(`${color.grey(`[${index}]`)} ${line}`);
+            console.log(`${color.grey(`[${index}]`)} ${line}`);
+          });
         });
-      });
+      }
 
       const exitMsg = color.bold(`[${index}] ${command} exited with ${exitCode}`);
       console.log(exitCode === 0 ? color.green(exitMsg) : color.red(exitMsg));
@@ -60,4 +64,8 @@ try {
 
 function logError(text) {
   console.log(`${color.red('error')} ${text}`);
+}
+
+function getUniqueCommand(command, index) {
+  return `[${index}] ${command}`;
 }
