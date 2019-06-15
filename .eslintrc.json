@@ -1,7 +1,13 @@
 {
-  "parserOptions": { "ecmaVersion": 6 },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 9
+  },
+  "env": {
+    "node": true,
+    "jest": true
+  },
   "rules": {
-    "semi": "warn",
-    "indent": ["warn", 2]
+    "no-console": "off"
   }
 }

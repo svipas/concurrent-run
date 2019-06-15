@@ -1,19 +1,28 @@
 {
   "name": "concurrent-run",
-  "description": "simple, zero dependency, commands runner in concurrent mode",
-  "version": "1.0.1",
-  "bin": "index.js",
+  "description": "Simple, zero dependency, multiple commands runner in concurrent mode.",
+  "version": "2.0.0",
+  "main": "src/concurrentRun.js",
+  "bin": {
+    "concurrent-run": "src/cli.js"
+  },
+  "author": "svipas",
+  "repository": "https://github.com/svipas/concurrent-run",
   "license": "MIT",
-  "repository": "https://github.com/svipben/concurrent-run",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest"
   },
   "devDependencies": {
-    "eslint": "^5.13.0"
+    "@types/jest": "^24.0.14",
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0"
   },
   "keywords": [
-    "concurrent",
+    "multiple",
+    "commands",
+    "runner",
     "run",
-    "commands"
+    "concurrent"
   ]
 }

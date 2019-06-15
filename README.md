@@ -1,8 +1,8 @@
-# concurrent-run &middot; [![Build Status](https://svipben.visualstudio.com/svipben/_apis/build/status/concurrent-run?branchName=master)](https://svipben.visualstudio.com/svipben/_build/latest?definitionId=2&branchName=master) [![NPM package](https://img.shields.io/npm/v/concurrent-run.svg)](https://www.npmjs.com/package/concurrent-run)
+# concurrent-run &middot; [![npm](https://img.shields.io/npm/v/concurrent-run.svg)](https://www.npmjs.com/package/concurrent-run)
 
-Simple, zero dependency, commands runner in concurrent mode.
+Simple, zero dependency, multiple commands runner in concurrent mode.
 
-<img src="./demo.gif" alt="Demo" width="600" height="400">
+![Demo](demo.gif)
 
 ## Installation
 
@@ -10,12 +10,62 @@ Simple, zero dependency, commands runner in concurrent mode.
 
 `yarn add --dev concurrent-run`
 
-### NPM
+### npm
 
 `npm install --save-dev concurrent-run`
 
-## Usage
+## Documentation
+
+### CLI
 
 `concurrent-run "command1 arg" "command2 arg"`
 
-You should always surround multiple commands with quotes, otherwise, everything will be treated as a separate command.
+Always surround multiple commands with quotes, otherwise, everything will be treated as a single command.
+
+### API
+
+```js
+const { ConcurrentRun } = require('concurrent-run');
+const concurrent = new ConcurrentRun();
+
+concurrent
+  .run(['command1 arg', 'command2 arg'])
+  .on('data', (data, command, index) => {
+    // data from spawned process stderr and stdout
+  })
+  .on('close', (exitCode, command, index) => {
+    // after command is finished
+  })
+  .on('error', (err, command, index) => {
+    // after an error occurs
+  });
+```
+
+**Events**
+
+- `data` gets called once `stderr` or `stdout` of spawned process sends data.
+
+```js
+const concurrent = new ConcurrentRun();
+concurrent.run(['command1 arg']).on('data', (data, command, index) => {
+  // do something...
+});
+```
+
+- `close` gets called once command is finished.
+
+```js
+const concurrent = new ConcurrentRun();
+concurrent.run(['command1 arg']).on('close', (exitCode, command, index) => {
+  // do something...
+});
+```
+
+- `error` gets called once an error occurs.
+
+```js
+const concurrent = new ConcurrentRun();
+concurrent.run(['command1 arg']).on('error', (err, command, index) => {
+  // do something...
+});
+```
