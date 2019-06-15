@@ -36,7 +36,7 @@ describe('ConcurrentRun', () => {
 
     it('should spawn a new process', () => {
       process.env = { jest: true };
-      const spawnOptions = { env: { FORCE_COLOR: 1, ...process.env } };
+      const spawnOptions = { shell: true, env: { FORCE_COLOR: 1, ...process.env } };
 
       concurrentRun.run(['command']);
       expect(child_process.spawn).toHaveBeenCalledWith('command', [], spawnOptions);
