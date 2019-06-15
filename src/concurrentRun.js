@@ -24,7 +24,7 @@ class ConcurrentRun {
       const splittedCommand = command.split(' ');
       const arg = splittedCommand[0];
       const args = splittedCommand.slice(1);
-      const executeCommand = child_process.spawn(arg, args, { env: { FORCE_COLOR: 1, ...process.env } });
+      const executeCommand = child_process.spawn(arg, args, { shell: true, env: { FORCE_COLOR: 1, ...process.env } });
       executeCommand.stderr.on('data', data => this._emitter.emit('data', data, command, index));
       executeCommand.stdout.on('data', data => this._emitter.emit('data', data, command, index));
       executeCommand.on('close', exitCode => this._emitter.emit('close', exitCode, command, index));
