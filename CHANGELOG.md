@@ -1,3 +1,13 @@
+## 2.2.0 (June 15, 2019)
+
+### API
+
+- Fix Windows by adding `shell: true` in spawn options.
+
+### CI
+
+- Add additional step to test CLI in Azure Pipelines.
+
 ## 2.1.0 (June 15, 2019)
 
 ### CLI
