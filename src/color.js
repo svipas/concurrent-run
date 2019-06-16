@@ -1,4 +1,4 @@
-const Colors = {
+const Color = {
   Bold: [1, 22],
   Grey: [90, 39],
   Green: [32, 39],
@@ -12,10 +12,10 @@ function colorizedText(colors, text) {
 }
 
 const color = {
-  bold: text => colorizedText(Colors.Bold, text),
-  grey: text => colorizedText(Colors.Grey, text),
-  red: text => colorizedText(Colors.Red, text),
-  green: text => colorizedText(Colors.Green, text)
+  bold: text => colorizedText(Color.Bold, text),
+  grey: text => colorizedText(Color.Grey, text),
+  red: text => colorizedText(Color.Red, text),
+  green: text => colorizedText(Color.Green, text)
 };
 
 module.exports = { color };
