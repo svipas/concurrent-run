@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
-    "prepublishOnly": "node src/cli.js 'yarn lint' 'yarn test'"
+    "prepublishOnly": "node src/cli.js \"yarn lint\" \"yarn test\""
   },
   "devDependencies": {
     "@types/jest": "^24.0.14",
