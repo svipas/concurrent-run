@@ -2,7 +2,7 @@
 
 Simple, zero dependency, multiple commands runner in concurrent mode.
 
-![Demo](demo.gif)
+<img src="./demo.gif" width="70%" height="70%">
 
 ## Installation
 
