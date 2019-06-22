@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const os = require('os');
-const { ConcurrentRun } = require('./concurrentRun');
+const { ConcurrentRun } = require('./concurrent-run');
 const { color } = require('./color');
 
 const argv = process.argv.slice(2);

@@ -2,7 +2,7 @@
   "name": "concurrent-run",
   "description": "Simple, zero dependency, multiple commands runner in concurrent mode.",
   "version": "2.2.0",
-  "main": "src/concurrentRun.js",
+  "main": "src/concurrent-run.js",
   "bin": {
     "concurrent-run": "src/cli.js"
   },
