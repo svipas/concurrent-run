@@ -15,8 +15,8 @@
     "prepublishOnly": "node src/cli.js \"yarn lint\" \"yarn test\""
   },
   "devDependencies": {
-    "@types/jest": "^24.0.14",
-    "eslint": "^5.16.0",
+    "@types/jest": "^24.0.15",
+    "eslint": "^6.0.0",
     "jest": "^24.8.0"
   },
   "keywords": [
