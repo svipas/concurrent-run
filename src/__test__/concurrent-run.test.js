@@ -1,4 +1,4 @@
-const { ConcurrentRun } = require('../concurrentRun');
+const { ConcurrentRun } = require('../concurrent-run');
 const { EventEmitter } = require('events');
 const child_process = require('child_process');
 const invalidCommands = [null, undefined, 0, 1, NaN, () => {}, function() {}, true, false, '', ' '];
