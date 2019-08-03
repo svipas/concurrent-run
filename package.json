@@ -7,7 +7,13 @@
     "concurrent-run": "src/cli.js"
   },
   "author": "svipas",
-  "repository": "https://github.com/svipas/concurrent-run",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svipas/concurrent-run.git"
+  },
+  "bugs": {
+    "url": "https://github.com/svipas/concurrent-run/issues"
+  },
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
@@ -15,8 +21,8 @@
     "prepublishOnly": "node src/cli.js \"yarn lint\" \"yarn test\""
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
-    "eslint": "^6.0.0",
+    "@types/jest": "^24.0.16",
+    "eslint": "^6.1.0",
     "jest": "^24.8.0"
   },
   "keywords": [
