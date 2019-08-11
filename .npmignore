@@ -1,2 +1,4 @@
 coverage
 demo.gif
+azure-pipelines.yml
+.eslintrc.json

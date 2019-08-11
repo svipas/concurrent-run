@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - Update all dependencies.
+- Add `.eslintrc.json` and `azure-pipelines.yml` to `.npmignore`.
 
 ## 2.2.1 (June 22, 2019)
 
