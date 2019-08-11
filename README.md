@@ -8,13 +8,17 @@ Simple, zero dependency, multiple commands runner in concurrent mode.
 
 ### Yarn
 
-`yarn add --dev concurrent-run`
+```
+yarn add --dev concurrent-run
+```
 
 ### npm
 
-`npm install --save-dev concurrent-run`
+```
+npm install --save-dev concurrent-run
+```
 
-## Documentation
+## Usage
 
 ### CLI
 
@@ -41,7 +45,7 @@ concurrent
   });
 ```
 
-**Events**
+#### Events
 
 - `data` gets called once `stderr` or `stdout` of spawned process sends data.
 
@@ -69,3 +73,7 @@ concurrent.run(['command1 arg']).on('error', (err, command, index) => {
   // do something...
 });
 ```
+
+## Contributing
+
+Feel free to open issues or PRs!
