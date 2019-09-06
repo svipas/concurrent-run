@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Update dependencies.
+
 ## 2.2.2 (August 11, 2019)
 
 - Update all dependencies.
