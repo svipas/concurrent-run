@@ -1,6 +1,9 @@
 ## [Unreleased]
 
+## 2.2.3 (October 24, 2019)
+
 - Update dependencies.
+- Update `azure-pipelines.yml` to use Node 12 and fix triggers.
 
 ## 2.2.2 (August 11, 2019)
 
