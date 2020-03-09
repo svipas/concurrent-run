@@ -2,3 +2,5 @@ coverage
 demo.gif
 azure-pipelines.yml
 src
+tsconfig.json
+babel.config.js
