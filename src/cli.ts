@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const os = require('os');
-const { ConcurrentRun } = require('./concurrent-run');
-const { color } = require('./color');
+import * as os from 'os';
+import { color } from './color';
+import { ConcurrentRun } from './ConcurrentRun';
 
 const argv = process.argv.slice(2);
 if (argv.length === 0) {
@@ -13,10 +13,11 @@ if (argv.length === 0) {
 try {
   console.log();
 
-  const executedCommands = {};
+  const executedCommands: { [key: string]: Buffer[] } = {};
+
   new ConcurrentRun()
     .run(argv)
-    .on('data', (data, command, index) => {
+    .on('data', (data: Buffer, command: string, index: number) => {
       command = getUniqueCommand(command, index);
       if (!executedCommands[command]) {
         executedCommands[command] = [data];
@@ -24,10 +25,10 @@ try {
         executedCommands[command].push(data);
       }
     })
-    .on('close', (exitCode, command, index) => {
+    .on('close', (exitCode: number, command: string, index: number) => {
       const executedCommand = executedCommands[getUniqueCommand(command, index)];
       if (executedCommand) {
-        executedCommand.forEach(data => {
+        executedCommand.forEach((data: Buffer) => {
           const lines = data.toString().split(os.EOL);
           lines.forEach(line => {
             if (line.startsWith('\u001b[2K')) {
@@ -53,7 +54,7 @@ try {
         process.exitCode = exitCode;
       }
     })
-    .on('error', (err, command) => {
+    .on('error', (err: Error, command: string) => {
       logError(`${color.grey(color.bold(`[${command}]`))} ${err.toString()}`);
       process.exit(1);
     });
@@ -62,10 +63,10 @@ try {
   process.exit(1);
 }
 
-function logError(text) {
+function logError(text: string) {
   console.log(`${color.red('error')} ${text}`);
 }
 
-function getUniqueCommand(command, index) {
+function getUniqueCommand(command: string, index: number) {
   return `[${index}] ${command}`;
 }
