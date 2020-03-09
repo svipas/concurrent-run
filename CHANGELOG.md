@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## 2.3.1 (March 9, 2020)
+
+- Add homepage to `package.json`.
+- Add `tsconfig.json` and `babel.config.js` to `.npmignore`.
+
 ## 2.3.0 (March 9, 2020)
 
 - Update dependencies and add TypeScript.
