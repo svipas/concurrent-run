@@ -11,7 +11,7 @@ jobs:
         displayName: 'Install dependencies'
       - script: 'yarn test'
         displayName: 'Run tests'
-      - script: 'node src/cli.js "echo test CLI"'
+      - script: 'node dist/cli.js "echo test CLI"'
         displayName: 'Test CLI'
   - job: macOS
     pool:
@@ -25,7 +25,7 @@ jobs:
         displayName: 'Install dependencies'
       - script: 'yarn test'
         displayName: 'Run tests'
-      - script: 'node src/cli.js "echo test CLI"'
+      - script: 'node dist/cli.js "echo test CLI"'
         displayName: 'Test CLI'
   - job: Linux
     pool:
@@ -39,7 +39,7 @@ jobs:
         displayName: 'Install dependencies'
       - script: 'yarn test'
         displayName: 'Run tests'
-      - script: 'node src/cli.js "echo test CLI"'
+      - script: 'node dist/cli.js "echo test CLI"'
         displayName: 'Test CLI'
 trigger:
   branches:
