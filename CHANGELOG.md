@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## 2.3.0 (March 9, 2020)
+
+- Update dependencies and add TypeScript.
+- Rewrite everything to TypeScript.
+- Change filename convention to use camelCase.
+- Drop ESLint.
+
 ## 2.2.3 (October 24, 2019)
 
 - Update dependencies.
