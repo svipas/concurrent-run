@@ -11,6 +11,8 @@ jobs:
         displayName: 'Install dependencies'
       - script: 'yarn test'
         displayName: 'Run tests'
+      - script: 'yarn compile'
+        displayName: 'Compile src'
       - script: 'node dist/cli.js "echo test CLI"'
         displayName: 'Test CLI'
   - job: macOS
@@ -25,6 +27,8 @@ jobs:
         displayName: 'Install dependencies'
       - script: 'yarn test'
         displayName: 'Run tests'
+      - script: 'yarn compile'
+        displayName: 'Compile src'
       - script: 'node dist/cli.js "echo test CLI"'
         displayName: 'Test CLI'
   - job: Linux
@@ -39,6 +43,8 @@ jobs:
         displayName: 'Install dependencies'
       - script: 'yarn test'
         displayName: 'Run tests'
+      - script: 'yarn compile'
+        displayName: 'Compile src'
       - script: 'node dist/cli.js "echo test CLI"'
         displayName: 'Test CLI'
 trigger:
