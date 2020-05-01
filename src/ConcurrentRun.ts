@@ -4,17 +4,17 @@ import { EventEmitter } from 'events';
 export class ConcurrentRun extends EventEmitter {
 	run(commands: string[]): ConcurrentRun {
 		if (!Array.isArray(commands)) {
-			throw Error(`Expected type of commands parameter is array, received ${typeof commands}`);
+			throw new Error(`Expected type of commands parameter is array, received ${typeof commands}.`);
 		}
 		if (commands.some((cmd) => typeof cmd !== 'string' || cmd.trim().length === 0)) {
-			throw Error("Some command in the commands array is not a string or it's empty string");
+			throw new Error("Some command in the commands array is not a string or it's empty string.");
 		}
 
 		commands.forEach((cmd: string, index: number) => {
-			const splittedCommand = cmd.split(' ');
-			const firstArg = splittedCommand[0];
-			const allArgs = splittedCommand.slice(1);
-			const executeCommand = child_process.spawn(firstArg, allArgs, {
+			const splittedCommands = cmd.split(' ');
+			const firstArg = splittedCommands[0];
+			const remainingArgs = splittedCommands.slice(1);
+			const executeCommand = child_process.spawn(firstArg, remainingArgs, {
 				shell: true,
 				env: { FORCE_COLOR: '1', ...process.env },
 			});
