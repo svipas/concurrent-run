@@ -7,5 +7,5 @@
 		"rootDir": "src",
 		"sourceMap": true
 	},
-	"exclude": ["node_modules", "src/__test__"]
+	"exclude": ["node_modules", "src/__tests__"]
 }
