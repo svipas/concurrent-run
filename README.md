@@ -34,16 +34,16 @@ import { ConcurrentRun } from 'concurrent-run';
 const concurrent = new ConcurrentRun();
 
 concurrent
-  .run(['command1 arg', 'command2 arg'])
-  .on('data', (data: Buffer, command: string, index: number) => {
-    // data from spawned process stderr and stdout
-  })
-  .on('close', (exitCode: number, command: string, index: number) => {
-    // after command is finished
-  })
-  .on('error', (err: Error, command: string, index: number) => {
-    // after an error occurs
-  });
+	.run(['command1 arg', 'command2 arg'])
+	.on('data', (data: Buffer, command: string, index: number) => {
+		// data from spawned process stderr and stdout
+	})
+	.on('close', (exitCode: number, command: string, index: number) => {
+		// after command is finished
+	})
+	.on('error', (err: Error, command: string, index: number) => {
+		// after an error occurs
+	});
 ```
 
 #### Events
@@ -56,7 +56,7 @@ import { ConcurrentRun } from 'concurrent-run';
 const concurrent = new ConcurrentRun();
 
 concurrent.run(['command1 arg']).on('data', (data: Buffer, command: string, index: number) => {
-  // do something...
+	// do something...
 });
 ```
 
@@ -68,7 +68,7 @@ import { ConcurrentRun } from 'concurrent-run';
 const concurrent = new ConcurrentRun();
 
 concurrent.run(['command1 arg']).on('close', (exitCode: number, command: string, index: number) => {
-  // do something...
+	// do something...
 });
 ```
 
@@ -80,7 +80,7 @@ import { ConcurrentRun } from 'concurrent-run';
 const concurrent = new ConcurrentRun();
 
 concurrent.run(['command1 arg']).on('error', (err: Error, command: string, index: number) => {
-  // do something...
+	// do something...
 });
 ```
 
