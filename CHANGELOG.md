@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 2.3.2 (May 1, 2020)
+
+- Change indentation to tabs.
+- Update all dependencies.
+- Rename `__test__` dir to `__tests__`.
+
 ## 2.3.1 (March 9, 2020)
 
 - Add homepage to `package.json`.
