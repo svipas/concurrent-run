@@ -4,6 +4,7 @@
 	"homepage": "https://github.com/svipas/concurrent-run",
 	"version": "2.3.2",
 	"main": "./dist/ConcurrentRun.js",
+	"types": "./dist/ConcurrentRun.d.ts",
 	"bin": {
 		"concurrent-run": "./dist/cli.js"
 	},
@@ -17,7 +18,7 @@
 	},
 	"license": "MIT",
 	"scripts": {
-		"compile": "tsc -p ./",
+		"compile": "tsc --declaration -p ./",
 		"test": "jest",
 		"prepublishOnly": "yarn compile"
 	},
