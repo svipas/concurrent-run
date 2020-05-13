@@ -23,7 +23,8 @@ describe('ConcurrentRun', () => {
 	afterEach(() => jest.clearAllMocks());
 
 	it('should create new EventEmitter', () => {
-		expect(concurrentRun).toBeInstanceOf(EventEmitter);
+		// @ts-expect-error
+		expect(concurrentRun._eventEmitter).toBeInstanceOf(EventEmitter);
 	});
 
 	describe('run', () => {
