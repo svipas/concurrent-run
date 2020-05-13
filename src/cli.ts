@@ -4,8 +4,8 @@ import * as os from 'os';
 import { color } from './color';
 import { ConcurrentRun } from './ConcurrentRun';
 
-const argv = process.argv.slice(2);
-if (argv.length === 0) {
+const cmdArgs = process.argv.slice(2);
+if (cmdArgs.length === 0) {
 	logError('Usage: concurrent-run "command1 arg1" "command2 arg2"');
 	process.exit(1);
 }
@@ -16,7 +16,7 @@ try {
 	const executedCommands: { [key: string]: Buffer[] } = {};
 
 	new ConcurrentRun()
-		.run(argv)
+		.run(cmdArgs)
 		.on('data', (data: Buffer, command: string, index: number) => {
 			command = getUniqueCommand(command, index);
 			if (!executedCommands[command]) {
@@ -27,24 +27,22 @@ try {
 		})
 		.on('close', (exitCode: number, command: string, index: number) => {
 			const executedCommand = executedCommands[getUniqueCommand(command, index)];
-			if (executedCommand) {
-				executedCommand.forEach((data: Buffer) => {
-					const lines = data.toString().split(os.EOL);
-					lines.forEach((line) => {
-						if (line.startsWith('\u001b[2K')) {
-							line = line.replace('\u001b[2K', '');
-						}
-						if (line.startsWith('\u001b[1G')) {
-							line = line.replace('\u001b[1G', '');
-						}
-						if (line === '' || line === '\u001b[2K') {
-							return;
-						}
+			executedCommand?.forEach((data: Buffer) => {
+				const lines = data.toString().split(os.EOL);
+				lines.forEach((line) => {
+					if (line.startsWith('\u001b[2K')) {
+						line = line.replace('\u001b[2K', '');
+					}
+					if (line.startsWith('\u001b[1G')) {
+						line = line.replace('\u001b[1G', '');
+					}
+					if (line === '' || line === '\u001b[2K') {
+						return;
+					}
 
-						console.log(`${color.grey(`[${index}]`)} ${line}`);
-					});
+					console.log(`${color.grey(`[${index}]`)} ${line}`);
 				});
-			}
+			});
 
 			const exitMsg = color.bold(`[${index}] ${command} exited with ${exitCode}`);
 			console.log(exitCode === 0 ? color.green(exitMsg) : color.red(exitMsg));
