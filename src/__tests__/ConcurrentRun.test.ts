@@ -131,7 +131,9 @@ describe('ConcurrentRun', () => {
 		const onCall = onSpy.mock.calls[0];
 		expect(onCall[0]).toBe('data');
 		expect(typeof onCall[1]).toBe('function');
-		concurrentRun.emit('data');
+
+		// @ts-expect-error
+		concurrentRun._eventEmitter.emit('data');
 	});
 
 	it('should remove listener from specific event', () => {
@@ -145,7 +147,9 @@ describe('ConcurrentRun', () => {
 		expect(offCall[0]).toBe('close');
 		expect(typeof offCall[1]).toBe('function');
 
-		concurrentRun.emit('close');
+		// @ts-expect-error
+		concurrentRun._eventEmitter.emit('close');
+
 		expect(fn).not.toHaveBeenCalled();
 	});
 
@@ -159,8 +163,10 @@ describe('ConcurrentRun', () => {
 		expect(onceCall[0]).toBe('error');
 		expect(typeof onceCall[1]).toBe('function');
 
-		concurrentRun.emit('error');
-		expect(() => concurrentRun.emit('error')).toThrow();
+		// @ts-expect-error
+		concurrentRun._eventEmitter.emit('error');
+
+		expect(() => concurrentRun._eventEmitter.emit('error')).toThrow();
 		expect(fn).toHaveBeenCalledTimes(1);
 	});
 
