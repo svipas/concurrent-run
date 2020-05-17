@@ -1,7 +1,7 @@
-import * as child_process from 'child_process';
-import { EventEmitter } from 'events';
+import * as child_process from "child_process";
+import { EventEmitter } from "events";
 
-type ConcurrentRunEvent = 'data' | 'close' | 'error';
+type ConcurrentRunEvent = "data" | "close" | "error";
 type Listener = (...args: any[]) => void;
 
 export class ConcurrentRun {
@@ -9,34 +9,59 @@ export class ConcurrentRun {
 
 	run(commands: string[]): ConcurrentRun {
 		if (!Array.isArray(commands)) {
-			throw new Error(`Expected type of commands parameter is array, received ${typeof commands}.`);
+			throw new Error(
+				`Expected type of commands parameter is array, received ${typeof commands}.`
+			);
 		}
-		if (commands.some((cmd) => typeof cmd !== 'string' || cmd.trim().length === 0)) {
-			throw new Error("Some command in the commands array is not a string or it's empty string.");
+		if (
+			commands.some((cmd) => typeof cmd !== "string" || cmd.trim().length === 0)
+		) {
+			throw new Error(
+				"Some command in the commands array is not a string or it's empty string."
+			);
 		}
 
 		commands.forEach((cmd: string, index: number) => {
-			const splittedCommands = cmd.split(' ');
+			const splittedCommands = cmd.split(" ");
 			const firstArg = splittedCommands[0];
 			const remainingArgs = splittedCommands.slice(1);
 			const executeCommand = child_process.spawn(firstArg, remainingArgs, {
 				shell: true,
-				env: { FORCE_COLOR: '1', ...process.env },
+				env: { FORCE_COLOR: "1", ...process.env },
 			});
-			executeCommand.stderr.on('data', (data: Buffer) => this._eventEmitter.emit('data', data, cmd, index));
-			executeCommand.stdout.on('data', (data: Buffer) => this._eventEmitter.emit('data', data, cmd, index));
-			executeCommand.on('close', (exitCode: number) => this._eventEmitter.emit('close', exitCode, cmd, index));
-			executeCommand.on('error', (err: Error) => this._eventEmitter.emit('error', err, cmd, index));
+			executeCommand.stderr.on("data", (data: Buffer) => {
+				this._eventEmitter.emit("data", data, cmd, index);
+			});
+			executeCommand.stdout.on("data", (data: Buffer) => {
+				this._eventEmitter.emit("data", data, cmd, index);
+			});
+			executeCommand.on("close", (exitCode: number) => {
+				this._eventEmitter.emit("close", exitCode, cmd, index);
+			});
+			executeCommand.on("error", (err: Error) => {
+				this._eventEmitter.emit("error", err, cmd, index);
+			});
 		});
 
 		return this;
 	}
 
-	public on(event: 'data', listener: (data: Buffer, cmd: string, index: number) => void): this;
-	public on(event: 'close', listener: (exitCode: number, cmd: string, index: number) => void): this;
-	public on(event: 'error', listener: (err: Error, cmd: string, index: number) => void): this;
+	public on(
+		event: "data",
+		listener: (data: Buffer, cmd: string, index: number) => void
+	): this;
 
-	on(event: string, listener: Listener): this {
+	public on(
+		event: "close",
+		listener: (exitCode: number, cmd: string, index: number) => void
+	): this;
+
+	public on(
+		event: "error",
+		listener: (err: Error, cmd: string, index: number) => void
+	): this;
+
+	on(event: ConcurrentRunEvent, listener: Listener): this {
 		this._eventEmitter.on(event, listener);
 		return this;
 	}

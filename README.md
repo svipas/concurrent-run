@@ -6,16 +6,16 @@ Simple, zero dependency, multiple commands runner in concurrent mode.
 
 ## Installation
 
-### Yarn
-
-```
-yarn add --dev concurrent-run
-```
-
 ### npm
 
 ```
 npm install --save-dev concurrent-run
+```
+
+### Yarn
+
+```
+yarn add --dev concurrent-run
 ```
 
 ## Usage
@@ -29,19 +29,19 @@ Always surround multiple commands with quotes, otherwise, everything will be tre
 ### API
 
 ```ts
-import { ConcurrentRun } from 'concurrent-run';
+import { ConcurrentRun } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
 concurrent
-	.run(['command1 arg', 'command2 arg'])
-	.on('data', (data: Buffer, command: string, index: number) => {
+	.run(["command1 arg", "command2 arg"])
+	.on("data", (data: Buffer, command: string, index: number) => {
 		// data from spawned process stderr and stdout
 	})
-	.on('close', (exitCode: number, command: string, index: number) => {
+	.on("close", (exitCode: number, command: string, index: number) => {
 		// after command is finished
 	})
-	.on('error', (err: Error, command: string, index: number) => {
+	.on("error", (err: Error, command: string, index: number) => {
 		// after an error occurs
 	});
 ```
@@ -51,37 +51,43 @@ concurrent
 - `data` gets called once `stderr` or `stdout` of spawned process sends data.
 
 ```ts
-import { ConcurrentRun } from 'concurrent-run';
+import { ConcurrentRun } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
-concurrent.run(['command1 arg']).on('data', (data: Buffer, command: string, index: number) => {
-	// do something...
-});
+concurrent
+	.run(["command1 arg"])
+	.on("data", (data: Buffer, command: string, index: number) => {
+		// do something...
+	});
 ```
 
 - `close` gets called once command is finished.
 
 ```ts
-import { ConcurrentRun } from 'concurrent-run';
+import { ConcurrentRun } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
-concurrent.run(['command1 arg']).on('close', (exitCode: number, command: string, index: number) => {
-	// do something...
-});
+concurrent
+	.run(["command1 arg"])
+	.on("close", (exitCode: number, command: string, index: number) => {
+		// do something...
+	});
 ```
 
 - `error` gets called once an error occurs.
 
 ```ts
-import { ConcurrentRun } from 'concurrent-run';
+import { ConcurrentRun } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
-concurrent.run(['command1 arg']).on('error', (err: Error, command: string, index: number) => {
-	// do something...
-});
+concurrent
+	.run(["command1 arg"])
+	.on("error", (err: Error, command: string, index: number) => {
+		// do something...
+	});
 ```
 
 ## Contributing

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import * as os from 'os';
-import { color } from './color';
-import { ConcurrentRun } from './ConcurrentRun';
+import * as os from "os";
+import { color } from "./color";
+import { ConcurrentRun } from "./ConcurrentRun";
 
 const cmdArgs = process.argv.slice(2);
 if (cmdArgs.length === 0) {
@@ -17,7 +17,7 @@ try {
 
 	new ConcurrentRun()
 		.run(cmdArgs)
-		.on('data', (data: Buffer, command: string, index: number) => {
+		.on("data", (data: Buffer, command: string, index: number) => {
 			command = getUniqueCommand(command, index);
 			if (!executedCommands[command]) {
 				executedCommands[command] = [data];
@@ -25,18 +25,19 @@ try {
 				executedCommands[command].push(data);
 			}
 		})
-		.on('close', (exitCode: number, command: string, index: number) => {
-			const executedCommand = executedCommands[getUniqueCommand(command, index)];
+		.on("close", (exitCode: number, command: string, index: number) => {
+			const executedCommand =
+				executedCommands[getUniqueCommand(command, index)];
 			executedCommand?.forEach((data: Buffer) => {
 				const lines = data.toString().split(os.EOL);
 				lines.forEach((line) => {
-					if (line.startsWith('\u001b[2K')) {
-						line = line.replace('\u001b[2K', '');
+					if (line.startsWith("\u001b[2K")) {
+						line = line.replace("\u001b[2K", "");
 					}
-					if (line.startsWith('\u001b[1G')) {
-						line = line.replace('\u001b[1G', '');
+					if (line.startsWith("\u001b[1G")) {
+						line = line.replace("\u001b[1G", "");
 					}
-					if (line === '' || line === '\u001b[2K') {
+					if (line === "" || line === "\u001b[2K") {
 						return;
 					}
 
@@ -44,7 +45,9 @@ try {
 				});
 			});
 
-			const exitMsg = color.bold(`[${index}] ${command} exited with ${exitCode}`);
+			const exitMsg = color.bold(
+				`[${index}] ${command} exited with ${exitCode}`
+			);
 			console.log(exitCode === 0 ? color.green(exitMsg) : color.red(exitMsg));
 			console.log();
 
@@ -52,7 +55,7 @@ try {
 				process.exitCode = exitCode;
 			}
 		})
-		.on('error', (err: Error, command: string) => {
+		.on("error", (err: Error, command: string) => {
 			logError(`${color.grey(color.bold(`[${command}]`))} ${err.toString()}`);
 			process.exit(1);
 		});
@@ -62,7 +65,7 @@ try {
 }
 
 function logError(text: string) {
-	console.log(`${color.red('error')} ${text}`);
+	console.log(`${color.red("error")} ${text}`);
 }
 
 function getUniqueCommand(command: string, index: number) {
