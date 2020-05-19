@@ -2,6 +2,7 @@
 
 import * as os from "os";
 import { color } from "./color";
+import { Command } from "./Command";
 import { ConcurrentRun } from "./ConcurrentRun";
 
 const cmdArgs = process.argv.slice(2);
@@ -17,18 +18,15 @@ try {
 
 	new ConcurrentRun()
 		.run(cmdArgs)
-		.on("data", (data: Buffer, command: string, index: number) => {
-			command = getUniqueCommand(command, index);
-			if (!executedCommands[command]) {
-				executedCommands[command] = [data];
+		.on("data", (data: Buffer, command: Command) => {
+			if (!executedCommands[command.key]) {
+				executedCommands[command.key] = [data];
 			} else {
-				executedCommands[command].push(data);
+				executedCommands[command.key].push(data);
 			}
 		})
-		.on("close", (exitCode: number, command: string, index: number) => {
-			const executedCommand =
-				executedCommands[getUniqueCommand(command, index)];
-			executedCommand?.forEach((data: Buffer) => {
+		.on("close", (exitCode: number, command: Command) => {
+			executedCommands[command.key]?.forEach((data: Buffer) => {
 				const lines = data.toString().split(os.EOL);
 				lines.forEach((line) => {
 					if (line.startsWith("\u001b[2K")) {
@@ -41,13 +39,11 @@ try {
 						return;
 					}
 
-					console.log(`${color.grey(`[${index}]`)} ${line}`);
+					console.log(`${color.grey(`[${command.index}]`)} ${line}`);
 				});
 			});
 
-			const exitMsg = color.bold(
-				`[${index}] ${command} exited with ${exitCode}`
-			);
+			const exitMsg = color.bold(`${command.key} exited with ${exitCode}`);
 			console.log(exitCode === 0 ? color.green(exitMsg) : color.red(exitMsg));
 			console.log();
 
@@ -55,8 +51,10 @@ try {
 				process.exitCode = exitCode;
 			}
 		})
-		.on("error", (err: Error, command: string) => {
-			logError(`${color.grey(color.bold(`[${command}]`))} ${err.toString()}`);
+		.on("error", (err: Error, command: Command) => {
+			logError(
+				`${color.grey(color.bold(`[${command.cmd}]`))} ${err.toString()}`
+			);
 			process.exit(1);
 		});
 } catch (err) {
@@ -66,8 +64,4 @@ try {
 
 function logError(text: string) {
 	console.log(`${color.red("error")} ${text}`);
-}
-
-function getUniqueCommand(command: string, index: number) {
-	return `[${index}] ${command}`;
 }

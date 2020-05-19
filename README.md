@@ -29,19 +29,19 @@ Always surround multiple commands with quotes, otherwise, everything will be tre
 ### API
 
 ```ts
-import { ConcurrentRun } from "concurrent-run";
+import { ConcurrentRun, Command } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
 concurrent
 	.run(["command1 arg", "command2 arg"])
-	.on("data", (data: Buffer, command: string, index: number) => {
+	.on("data", (data: Buffer, command: Command) => {
 		// data from spawned process stderr and stdout
 	})
-	.on("close", (exitCode: number, command: string, index: number) => {
+	.on("close", (exitCode: number, command: Command) => {
 		// after command is finished
 	})
-	.on("error", (err: Error, command: string, index: number) => {
+	.on("error", (err: Error, command: Command) => {
 		// after an error occurs
 	});
 ```
@@ -51,13 +51,13 @@ concurrent
 - `data` gets called once `stderr` or `stdout` of spawned process sends data.
 
 ```ts
-import { ConcurrentRun } from "concurrent-run";
+import { ConcurrentRun, Command } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
 concurrent
 	.run(["command1 arg"])
-	.on("data", (data: Buffer, command: string, index: number) => {
+	.on("data", (data: Buffer, command: Command) => {
 		// do something...
 	});
 ```
@@ -65,13 +65,13 @@ concurrent
 - `close` gets called once command is finished.
 
 ```ts
-import { ConcurrentRun } from "concurrent-run";
+import { ConcurrentRun, Command } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
 concurrent
 	.run(["command1 arg"])
-	.on("close", (exitCode: number, command: string, index: number) => {
+	.on("close", (exitCode: number, command: Command) => {
 		// do something...
 	});
 ```
@@ -79,15 +79,15 @@ concurrent
 - `error` gets called once an error occurs.
 
 ```ts
-import { ConcurrentRun } from "concurrent-run";
+import { ConcurrentRun, Command } from "concurrent-run";
 
 const concurrent = new ConcurrentRun();
 
 concurrent
 	.run(["command1 arg"])
-	.on("error", (err: Error, command: string, index: number) => {
-		// do something...
-	});
+	.on("error", (err: Error, command: Command) => {
+	// do something...
+});
 ```
 
 ## Contributing

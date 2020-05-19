@@ -1,5 +1,6 @@
 import * as child_process from "child_process";
 import { EventEmitter } from "events";
+import { Command } from "./Command";
 
 type ConcurrentRunEvent = "data" | "close" | "error";
 type Listener = (...args: any[]) => void;
@@ -21,25 +22,24 @@ export class ConcurrentRun {
 			);
 		}
 
-		commands.forEach((cmd: string, index: number) => {
-			const splittedCommands = cmd.split(" ");
-			const firstArg = splittedCommands[0];
-			const remainingArgs = splittedCommands.slice(1);
-			const executeCommand = child_process.spawn(firstArg, remainingArgs, {
+		commands.forEach((text: string, index: number) => {
+			const [cmd, ...args] = text.split(" ");
+			const command = new Command(cmd, args, index);
+			const executeCommand = child_process.spawn(cmd, args, {
 				shell: true,
 				env: { FORCE_COLOR: "1", ...process.env },
 			});
 			executeCommand.stderr.on("data", (data: Buffer) => {
-				this._eventEmitter.emit("data", data, cmd, index);
+				this._eventEmitter.emit("data", data, command);
 			});
 			executeCommand.stdout.on("data", (data: Buffer) => {
-				this._eventEmitter.emit("data", data, cmd, index);
+				this._eventEmitter.emit("data", data, command);
 			});
 			executeCommand.on("close", (exitCode: number) => {
-				this._eventEmitter.emit("close", exitCode, cmd, index);
+				this._eventEmitter.emit("close", exitCode, command);
 			});
 			executeCommand.on("error", (err: Error) => {
-				this._eventEmitter.emit("error", err, cmd, index);
+				this._eventEmitter.emit("error", err, command);
 			});
 		});
 
@@ -48,17 +48,17 @@ export class ConcurrentRun {
 
 	public on(
 		event: "data",
-		listener: (data: Buffer, cmd: string, index: number) => void
+		listener: (data: Buffer, command: Command) => void
 	): this;
 
 	public on(
 		event: "close",
-		listener: (exitCode: number, cmd: string, index: number) => void
+		listener: (exitCode: number, command: Command) => void
 	): this;
 
 	public on(
 		event: "error",
-		listener: (err: Error, cmd: string, index: number) => void
+		listener: (err: Error, command: Command) => void
 	): this;
 
 	on(event: ConcurrentRunEvent, listener: Listener): this {
@@ -96,10 +96,6 @@ export class ConcurrentRun {
 
 	rawListeners(event: ConcurrentRunEvent): Function[] {
 		return this._eventEmitter.rawListeners(event);
-	}
-
-	listenerCount(event: ConcurrentRunEvent): number {
-		return this._eventEmitter.listenerCount(event);
 	}
 
 	prependListener(event: ConcurrentRun, listener: Listener): this {

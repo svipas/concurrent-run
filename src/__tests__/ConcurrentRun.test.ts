@@ -1,5 +1,6 @@
 import * as child_process from "child_process";
 import { EventEmitter } from "events";
+import { Command } from "../Command";
 import { ConcurrentRun } from "../ConcurrentRun";
 
 const invalidCommands = [
@@ -94,15 +95,14 @@ describe("ConcurrentRun", () => {
 		});
 
 		it("should emit on stderr to data event", (done) => {
-			concurrentRun.on(
-				"data",
-				(data: Buffer, command: string, index: number) => {
-					expect(data).toBeInstanceOf(Buffer);
-					expect(command).toBe("command arg");
-					expect(index).toBe(0);
-					done();
-				}
-			);
+			concurrentRun.on("data", (data: Buffer, command: Command) => {
+				expect(data).toBeInstanceOf(Buffer);
+				expect(command.cmd).toBe("command");
+				expect(command.args).toBe(["arg"]);
+				expect(command.key).toBe(`[0] command`);
+				expect(command.index).toBe(0);
+				done();
+			});
 
 			concurrentRun.run(["command arg"]);
 
@@ -113,15 +113,14 @@ describe("ConcurrentRun", () => {
 		});
 
 		it("should emit on stdout to data event", (done) => {
-			concurrentRun.on(
-				"data",
-				(data: Buffer, command: string, index: number) => {
-					expect(data).toBeInstanceOf(Buffer);
-					expect(command).toBe("command arg");
-					expect(index).toBe(0);
-					done();
-				}
-			);
+			concurrentRun.on("data", (data: Buffer, command: Command) => {
+				expect(data).toBeInstanceOf(Buffer);
+				expect(command.cmd).toBe("command");
+				expect(command.args).toBe(["arg"]);
+				expect(command.key).toBe(`[0] command`);
+				expect(command.index).toBe(0);
+				done();
+			});
 
 			concurrentRun.run(["command arg"]);
 
@@ -132,15 +131,14 @@ describe("ConcurrentRun", () => {
 		});
 
 		it("should emit to close event", (done) => {
-			concurrentRun.on(
-				"close",
-				(exitCode: number, command: string, index: number) => {
-					expect(exitCode).toBe(0);
-					expect(command).toBe("command arg");
-					expect(index).toBe(0);
-					done();
-				}
-			);
+			concurrentRun.on("close", (exitCode: number, command: Command) => {
+				expect(exitCode).toBe(0);
+				expect(command.cmd).toBe("command");
+				expect(command.args).toBe(["arg"]);
+				expect(command.key).toBe(`[0] command`);
+				expect(command.index).toBe(0);
+				done();
+			});
 
 			concurrentRun.run(["command arg"]);
 
@@ -151,15 +149,14 @@ describe("ConcurrentRun", () => {
 		});
 
 		it("should emit to error event", (done) => {
-			concurrentRun.on(
-				"error",
-				(err: Error, command: string, index: number) => {
-					expect(err).toBeInstanceOf(Error);
-					expect(command).toBe("command arg");
-					expect(index).toBe(0);
-					done();
-				}
-			);
+			concurrentRun.on("error", (err: Error, command: Command) => {
+				expect(err).toBeInstanceOf(Error);
+				expect(command.cmd).toBe("command");
+				expect(command.args).toBe(["arg"]);
+				expect(command.key).toBe(`[0] command`);
+				expect(command.index).toBe(0);
+				done();
+			});
 
 			concurrentRun.run(["command arg"]);
 			const errorCall = childProcessSpawn.on.mock.calls[1];
