@@ -98,7 +98,7 @@ describe("ConcurrentRun", () => {
 			concurrentRun.on("data", (data: Buffer, command: Command) => {
 				expect(data).toBeInstanceOf(Buffer);
 				expect(command.cmd).toBe("command");
-				expect(command.args).toBe(["arg"]);
+				expect(command.args).toEqual(["arg"]);
 				expect(command.key).toBe(`[0] command`);
 				expect(command.index).toBe(0);
 				done();
@@ -116,7 +116,7 @@ describe("ConcurrentRun", () => {
 			concurrentRun.on("data", (data: Buffer, command: Command) => {
 				expect(data).toBeInstanceOf(Buffer);
 				expect(command.cmd).toBe("command");
-				expect(command.args).toBe(["arg"]);
+				expect(command.args).toEqual(["arg"]);
 				expect(command.key).toBe(`[0] command`);
 				expect(command.index).toBe(0);
 				done();
@@ -134,7 +134,7 @@ describe("ConcurrentRun", () => {
 			concurrentRun.on("close", (exitCode: number, command: Command) => {
 				expect(exitCode).toBe(0);
 				expect(command.cmd).toBe("command");
-				expect(command.args).toBe(["arg"]);
+				expect(command.args).toEqual(["arg"]);
 				expect(command.key).toBe(`[0] command`);
 				expect(command.index).toBe(0);
 				done();
@@ -152,7 +152,7 @@ describe("ConcurrentRun", () => {
 			concurrentRun.on("error", (err: Error, command: Command) => {
 				expect(err).toBeInstanceOf(Error);
 				expect(command.cmd).toBe("command");
-				expect(command.args).toBe(["arg"]);
+				expect(command.args).toEqual(["arg"]);
 				expect(command.key).toBe(`[0] command`);
 				expect(command.index).toBe(0);
 				done();
