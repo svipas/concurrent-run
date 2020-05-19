@@ -2,7 +2,7 @@
 	"name": "concurrent-run",
 	"description": "Simple, zero dependency, multiple commands runner in concurrent mode.",
 	"homepage": "https://github.com/svipas/concurrent-run",
-	"version": "2.3.4",
+	"version": "2.3.5",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"bin": {

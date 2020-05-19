@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 2.3.5 (May 19, 2020)
+
+- Reformat project with new settings.
+- Update all dependencies.
+- Create and emit `Command` class with `cmd`, `args`, `index` and `key` properties.
+
 ## 2.3.4 (May 13, 2020)
 
 - Add typings for all events in `ConcurrentRun` class.
