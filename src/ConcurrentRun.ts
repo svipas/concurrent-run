@@ -30,16 +30,16 @@ export class ConcurrentRun {
 				env: { FORCE_COLOR: "1", ...process.env },
 			});
 			executeCommand.stderr.on("data", (data: Buffer) => {
-				this._eventEmitter.emit("data", data, command);
+				return this._eventEmitter.emit("data", data, command);
 			});
 			executeCommand.stdout.on("data", (data: Buffer) => {
-				this._eventEmitter.emit("data", data, command);
+				return this._eventEmitter.emit("data", data, command);
 			});
 			executeCommand.on("close", (exitCode: number) => {
-				this._eventEmitter.emit("close", exitCode, command);
+				return this._eventEmitter.emit("close", exitCode, command);
 			});
 			executeCommand.on("error", (err: Error) => {
-				this._eventEmitter.emit("error", err, command);
+				return this._eventEmitter.emit("error", err, command);
 			});
 		});
 
