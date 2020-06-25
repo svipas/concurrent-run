@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## 2.3.6 (June 25, 2020)
+
+- Update all dependencies.
+
 ## 2.3.5 (May 19, 2020)
 
 - Reformat project with new settings.
