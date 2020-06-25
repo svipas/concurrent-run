@@ -209,6 +209,7 @@ describe("ConcurrentRun", () => {
 		// @ts-expect-error
 		concurrentRun._eventEmitter.emit("error");
 
+		// @ts-expect-error
 		expect(() => concurrentRun._eventEmitter.emit("error")).toThrow();
 		expect(fn).toHaveBeenCalledTimes(1);
 	});
